@@ -1,0 +1,241 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>空間預約系統</title><style>
+:root{font-family:system-ui,-apple-system,'Noto Sans TC',sans-serif;color:#203044;background:#f3f6fa}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:28px 18px 60px}header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}h1{font-size:27px;margin:6px 0}h2{font-size:18px;margin:0 0 16px}.sub,.muted{color:#65758a}.sub{font-size:13px}.pill{border-radius:30px;background:#e6edf7;padding:7px 11px;font-size:12px;color:#435c78}.panel{background:white;border:1px solid #e1e8f1;border-radius:15px;padding:22px;margin-bottom:16px;box-shadow:0 3px 12px #152c4b08}.layout{display:grid;grid-template-columns:1.55fr 1fr;gap:18px}.field{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin:12px 0 20px}.field label{font-size:13px;font-weight:650;display:grid;gap:6px;flex:1;min-width:180px}select,input{border:1px solid #cdd7e3;border-radius:9px;padding:11px;background:white;color:#23364d;font-size:15px;width:100%}.spaces{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.space{background:#fff;border:1px solid #d7e0eb;border-radius:11px;padding:14px;text-align:left;cursor:pointer;color:inherit}.space strong{display:block;margin-bottom:8px}.space small{color:#68788c}.space.active{border:2px solid #216caa;background:#eef6ff;padding:13px}.space:disabled{opacity:.5;cursor:not-allowed}.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.slot{padding:13px 6px;min-height:67px;border:1px solid #d3dfec;border-radius:10px;background:#f8fbff;cursor:pointer;color:#22354a;font-size:13px;font-weight:650}.slot small{display:block;font-size:11px;margin-top:5px;font-weight:450}.slot.selected{background:#e1f3ed;border:2px solid #188468;color:#09664c;padding:12px 5px}.slot.booked{background:#f1f2f4;color:#7c8795;cursor:not-allowed}.slot.blocked{background:#fff0eb;color:#a25a47;cursor:not-allowed}.slot.closed{background:#f2f4f7;color:#8a95a3;cursor:not-allowed}.slot.past{background:#f2f4f7;color:#8a95a3;cursor:not-allowed}.summary{background:#f4f7fb;padding:16px;border-radius:12px}.summary p{font-size:14px;margin:10px 0}.selected-list{font-size:13px;line-height:1.9}.primary{border:0;background:#176ba8;color:white;border-radius:9px;padding:13px 16px;font-weight:700;cursor:pointer;width:100%;font-size:15px}.primary:disabled{opacity:.45;cursor:not-allowed}.secondary{border:1px solid #cdd9e5;background:white;color:#315472;border-radius:8px;padding:8px 12px;cursor:pointer}.note{border-radius:10px;padding:12px 14px;margin-top:14px;font-size:13px;line-height:1.7}.ok{background:#e6f6ed;color:#176246}.error{background:#fff0e8;color:#963e27}.info{background:#eaf3fc;color:#255c88}.records{width:100%;border-collapse:collapse;font-size:13px}.records th,.records td{border-bottom:1px solid #e7ecf2;text-align:left;padding:10px 7px}.records th{color:#68778a}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.tag{font-size:11px;color:#146d50;background:#e1f3eb;border-radius:20px;padding:3px 8px}.hint{font-size:12px;line-height:1.8;color:#65758a}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.counter{font-size:13px;color:#65758a}@media(max-width:800px){.layout{grid-template-columns:1fr}.spaces{grid-template-columns:1fr 1fr}.slots{grid-template-columns:1fr 1fr}}@media(max-width:420px){.spaces{grid-template-columns:1fr}.slots{grid-template-columns:1fr 1fr}.panel{padding:16px}}
+h3{font-size:15px;margin:20px 0 8px}#adminPanel[hidden]{display:none}#adminPanel .field label{min-width:130px}#weeklyList .note,#blockList .note,#conflictList .note{margin-top:8px}
+.management-card{border:1px solid #e1e8f1;border-radius:11px;padding:14px;margin:12px 0}.management-card h3{margin:0 0 10px}.management-card .secondary{margin:3px}.status-good{color:#176246}.status-warn{color:#963e27}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.admin-tabs button[aria-pressed="true"]{background:#176ba8;color:#fff}.conflict-item{border:1px solid #e1e8f1;border-radius:10px;padding:12px;margin:8px 0}.conflict-item p{margin:5px 0;font-size:13px}.conflict-item input{font-size:13px}.conflict-item .secondary{margin:3px}.preview-list{font-size:13px;line-height:1.7;margin:8px 0}.preview-list li{margin:3px 0}#calendarPanel{margin-top:18px}.calendar-switch{display:flex;gap:6px}.calendar-switch button[aria-pressed="true"]{background:#176ba8;color:white;border-color:#176ba8}.calendar-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}.calendar-controls strong{margin:0 8px}.calendar-controls label{font-size:13px;display:flex;align-items:center;gap:8px;margin-left:auto}.calendar-controls select{width:auto;min-width:150px}.calendar-content{overflow-x:auto}.cal-grid{display:grid;grid-template-columns:76px repeat(7,minmax(112px,1fr));min-width:860px;border-top:1px solid #dce4ee;border-left:1px solid #dce4ee}.cal-cell{min-height:62px;border-right:1px solid #dce4ee;border-bottom:1px solid #dce4ee;padding:5px;font-size:12px}.cal-head{background:#f1f6fb;font-weight:700;text-align:center;min-height:43px;padding:10px 4px}.cal-hour{background:#f8fafc;color:#53667a;text-align:center;font-weight:600}.cal-sunday{background:#f5f6f8;color:#7b8591}.cal-month{display:grid;grid-template-columns:repeat(7,minmax(105px,1fr));min-width:735px;border-left:1px solid #dce4ee;border-top:1px solid #dce4ee}.cal-month .cal-cell{min-height:120px}.cal-outside{background:#f8f9fb;color:#9ba5b2}.cal-date{font-weight:700;margin-bottom:7px}.cal-booking{display:block;width:100%;text-align:left;border:1px solid #b9d7ed;border-radius:6px;background:#e9f4fd;color:#184c72;font-size:11px;line-height:1.45;padding:5px;margin:4px 0;cursor:pointer;overflow-wrap:anywhere}.cal-booking:hover,.cal-booking:focus{background:#cfe9fb;outline:2px solid #277fb5}.cal-empty{color:#9ba5b2;font-size:11px}.calendar-detail{margin-top:14px;border:1px solid #b9d7ed;background:#f4f9fe;padding:14px;border-radius:10px}.calendar-detail p{margin:8px 0;font-size:13px}@media(max-width:600px){.calendar-controls label{margin-left:0}.cal-month{min-width:735px}}
+</style></head><body><div class="wrap"><header><div><div class="sub">EMBA SPACE BOOKING · S02 / v2.8.4</div><h1>空間預約系統</h1><div class="sub">點選不連續小時區塊，每個時段各自建立預約</div></div><span class="pill">單機展示模式 · 瀏覽器本機儲存</span></header><div class="layout"><main><section class="panel"><h2>01｜使用者與空間</h2><div class="field"><label>模擬登入身分<select id="user"></select></label></div><div id="spaces" class="spaces"></div></section><section class="panel"><h2>02｜選擇日期</h2><div class="field"><label>預約日期<input id="date" type="date"></label></div><p id="dateHint" class="hint"></p></section><section class="panel"><div class="sectionhead"><h2>03｜選擇時段</h2><span id="count" class="counter">已選 0 小時</span></div><div id="slots" class="slots"></div><p class="hint">灰色＝已預約／非開放；橘色＝臨時封鎖／固定禁用；綠色＝已選取。每個區塊為 1 小時，可不連續選取。</p></section><section id="adminPanel" class="panel" hidden><h2>行政人員｜空間開放管理</h2><p class="hint">「暫停學生預約」不影響既有預約；「指定期間關閉」會檢查既有學生預約並建立協調紀錄。行政人員仍可依其他封鎖規則預約。</p><div class="management-card"><h3>即時暫停／恢復學生預約</h3><div id="pauseList"></div></div><div class="management-card"><h3>指定日期區間關閉（假期／整修）</h3><div class="field"><label>空間<select id="holidaySpace"></select></label><label>開始日期<input type="date" id="holidayStart"></label><label>結束日期<input type="date" id="holidayEnd"></label></div><div class="field"><label>關閉原因<input id="holidayReason" placeholder="例如：寒假期間暫停學生借用"></label></div><button id="holidaySave" class="secondary">預覽新增關閉區間</button><button id="holidayCancelEdit" class="secondary" hidden>取消編輯</button><div id="holidayPreview"></div><div id="holidayList"></div></div><h2>行政人員｜封鎖時段管理</h2><p class="hint">設定每週固定禁用或指定日期臨時封鎖。封鎖不會自動取消既有預約，須由行政人員另行聯繫。</p><div class="field"><label>設定空間<select id="adminSpace"></select></label></div><h3>每週固定禁止時段</h3><div class="field"><label>星期<select id="weeklyDay"><option value="1">星期一</option><option value="2">星期二</option><option value="3">星期三</option><option value="4">星期四</option><option value="5">星期五</option><option value="6">星期六</option><option value="0">星期日</option></select></label><label>開始時間<select id="weeklyStart"></select></label><label>結束時間<select id="weeklyEnd"></select></label></div><button id="addWeekly" class="secondary">預覽新增固定禁止規則</button><button id="weeklyCancelEdit" class="secondary" hidden>取消編輯</button><div id="weeklyError" aria-live="assertive" role="alert"></div><div id="weeklyPreview"></div><div id="weeklyList"></div><h3>指定日期臨時封鎖</h3><div class="field"><label>日期<input type="date" id="blockDate"></label><label>開始時間<select id="blockStart"></select></label><label>結束時間<select id="blockEnd"></select></label></div><button id="addBlock" class="secondary">預覽新增臨時封鎖</button><div id="blockPreview"></div><div id="blockList"></div><h3>既有預約協調紀錄（全部空間）</h3><p class="hint">標記「已協調」僅代表聯繫完成，不會取消原預約，也不會解除封鎖。</p><div class="admin-tabs"><button id="conflictPending" class="secondary" aria-pressed="true">目前待處理</button><button id="conflictAll" class="secondary" aria-pressed="false">全部歷程</button></div><div id="conflictList"></div><div style="border-top:1px solid #e1e8f1;margin:20px 0 14px"></div><h3>封鎖時段示範資料</h3><p class="hint">清除自訂固定禁止、臨時封鎖、假期關閉與協調紀錄，並恢復所有空間的學生預約開放狀態；保留全部預約及內建固定規則。</p><button id="resetAdminDemo" type="button" class="secondary">重設管理示範資料</button><div id="adminMessage" aria-live="polite"></div></section></main><aside><section class="panel"><h2>04｜確認預約</h2><div id="summary" class="summary"></div><div style="height:14px"></div><button id="submit" class="primary">確認建立預約</button><div id="message" aria-live="polite"></div></section><section class="panel"><div class="toolbar"><h2 style="margin:0">預約紀錄</h2></div><p class="hint">顯示目前模擬使用者的有效預約。此處可驗證資料保存；學生可修改或取消自己的未來預約；行政人員可修改或取消自己建立的未來預約，其他學生預約維持唯讀。已取消預約不顯示於學生或行政人員清單。舊版超額預約請人工檢查。</p><div id="recordFilters" class="field" hidden><label>日期篩選<input id="filterDate" type="date"></label><label>空間篩選<select id="filterSpace"><option value="">全部空間</option></select></label><label>預約人篩選<select id="filterUser"><option value="">全部預約人</option></select></label></div><div style="overflow-x:auto"><table class="records"><thead><tr><th>日期</th><th>時間</th><th>空間</th><th>預約人</th><th>狀態</th><th>編號</th><th>操作</th></tr></thead><tbody id="records"></tbody></table></div><div id="recordMessage" aria-live="polite"></div></section><section id="editPanel" class="panel" hidden><h2>修改我的預約</h2><p class="hint">每筆預約獨立修改；更換日期、時段或空間後，會重新驗證所有預約規則。</p><div class="field"><label>新日期<input id="editDate" type="date"></label><label>新空間<select id="editSpace"></select></label><label>新時段<select id="editHour"></select></label></div><button id="saveEdit" class="primary">儲存修改</button><div style="height:8px"></div><button id="cancelEdit" class="secondary">取消編輯</button><div id="editMessage" aria-live="polite"></div></section><section class="panel"><h2>原型驗證說明</h2><div class="hint">學生：今天至第 14 天（含）可預約，單日跨空間累計最多 3 小時（含已成立預約）。週六可預約、週日自動不開放。<br>行政：可預約更遠日期，不受 3 小時限制。<br>預約自動核准；無電子郵件通知。<br>每次提交採全有或全無，任一時段失敗則整批不寫入。<br><strong>限制：</strong>本機儲存無法提供多人同步或真正的並發防重複預約保證。</div></section></aside></div>
+<section id="calendarPanel" class="panel" hidden aria-label="行政人員預約日曆">
+ <div class="toolbar"><div><h2 style="margin:0">05｜有效預約日曆</h2><p class="hint">行政人員專用 · 週曆／月曆切換 · 僅顯示有效預約，點選可查看詳細資料（學生預約唯讀）</p></div><div class="calendar-switch"><button id="viewWeek" class="secondary" aria-pressed="true">週曆</button><button id="viewMonth" class="secondary" aria-pressed="false">月曆</button></div></div>
+ <div class="calendar-controls"><button id="calPrev" class="secondary" aria-label="上一週或上一月">‹ 上一段</button><button id="calToday" class="secondary">今天</button><button id="calNext" class="secondary" aria-label="下一週或下一月">下一段 ›</button><strong id="calRange"></strong><label>空間篩選 <select id="calSpace"><option value="">全部空間</option></select></label></div>
+ <div id="calContent" class="calendar-content" aria-live="polite"></div>
+ <div id="calDetail" class="calendar-detail" hidden role="dialog" aria-modal="false" aria-label="預約詳細資訊"><div class="toolbar"><strong>預約詳細資訊（唯讀）</strong><button id="calClose" class="secondary">關閉</button></div><div id="calDetailText"></div></div>
+</section></div><script>
+'use strict';
+const KEY='emba-s01-v21-reservations'; // 沿用舊版儲存鍵，升級後保留既有測試資料
+const USERS=[{id:'s1',name:'王同學',role:'student'},{id:'s2',name:'陳同學',role:'student'},{id:'a1',name:'行政人員',role:'admin'}];
+const SPACES=[{id:'A',name:'討論室 A',capacity:8,status:'active'},{id:'B',name:'研討室 B',capacity:20,status:'active'},{id:'C',name:'小組討論室 C',capacity:6,status:'active'}];
+// 開放規則：週一至週六可預約，週日自動不開放。09:00–18:00 為原型示範時段，非已確認正式政策；B 空間週三 12:00–14:00 固定禁用。
+const BASE_RULES=SPACES.flatMap(s=>Array.from({length:6},(_,i)=>({space_id:s.id,weekday:i+1,start:9,end:18,type:'open'}))).concat([{space_id:'B',weekday:3,start:12,end:14,type:'closed'}]);
+const RULE_KEY='emba-s02-weekly-v1', BLOCK_KEY='emba-s02-blocks-v1', CONFLICT_KEY='emba-s02-conflicts-v1', HOLIDAY_KEY='emba-s02-holidays-v28', PAUSE_KEY='emba-s02-pauses-v28';
+const readArray=(k,fallback=[])=>{try{const a=JSON.parse(localStorage.getItem(k));return Array.isArray(a)?a:fallback}catch{return fallback}};
+let customRules=readArray(RULE_KEY), customBlocks=readArray(BLOCK_KEY), conflicts=readArray(CONFLICT_KEY), holidays=readArray(HOLIDAY_KEY);
+let pauses={};try{const x=JSON.parse(localStorage.getItem(PAUSE_KEY));if(x&&typeof x==='object'&&!Array.isArray(x))pauses=x}catch{}
+let conflictView='pending',editingHolidayId=null,editingWeeklyId=null;
+const RULES=()=>BASE_RULES.concat(customRules.filter(r=>r.status==='active'));
+const uid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'ID-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+const persistAdmin=()=>{localStorage.setItem(RULE_KEY,JSON.stringify(customRules));localStorage.setItem(BLOCK_KEY,JSON.stringify(customBlocks));localStorage.setItem(CONFLICT_KEY,JSON.stringify(conflicts));localStorage.setItem(HOLIDAY_KEY,JSON.stringify(holidays));localStorage.setItem(PAUSE_KEY,JSON.stringify(pauses))};
+const pad=n=>String(n).padStart(2,'0');
+const taiwanParts=(d=new Date())=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(d).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p};
+const today=()=>{const p=taiwanParts();return `${p.year}-${p.month}-${p.day}`};
+// BUG-006: 儲存的 UTC ISO 時間戳記不變；僅將歷程顯示轉為臺灣時間。
+const formatTaiwanTimestamp=value=>{if(!value)return '時間未知';const d=new Date(value);if(Number.isNaN(d.getTime()))return '時間格式錯誤';const p=taiwanParts(d);return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}`};
+const addDays=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
+const weekday=s=>new Date(s+'T12:00:00Z').getUTCDay();
+const time=h=>`${pad(h)}:00`;
+const iso=(day,h)=>`${day}T${time(h)}:00+08:00`;
+const el=id=>document.getElementById(id);
+const seed=()=>[]; // 新訪客沒有預設預約；舊瀏覽器保留自行建立的紀錄
+const load=()=>{try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)?x:seed()}catch{return seed()}};
+let reservations=load();let selected=new Set();let space='A';let editingId=null;
+const blocks=()=>customBlocks;
+const holidayClosed=(day,sid)=>holidays.some(h=>h.status==='active'&&h.space_id===sid&&h.start_day<=day&&day<=h.end_day);
+const isStudentPaused=sid=>!!pauses[sid];
+const save=()=>localStorage.setItem(KEY,JSON.stringify(reservations));
+const user=()=>USERS.find(x=>x.id===el('user').value);
+const date=()=>el('date').value;
+const overlaps=(a,b,c,d)=>a<d&&c<b;
+function classify(day,h,sid,ignoreId=null,actor=user()){if(actor.role==='student'&&isStudentPaused(sid))return 'paused';if(actor.role==='student'&&holidayClosed(day,sid))return 'holiday';const start=iso(day,h),end=iso(day,h+1),wd=weekday(day);const rules=RULES().filter(r=>r.space_id===sid&&r.weekday===wd);const open=rules.some(r=>r.type==='open'&&h>=r.start&&h+1<=r.end);const closed=rules.some(r=>r.type==='closed'&&h<r.end&&h+1>r.start);if(!open)return 'closed';if(closed)return 'weekly';if(new Date(start).getTime()<=Date.now())return 'past';if(blocks().some(b=>b.status==='active'&&b.space_id===sid&&overlaps(start,end,b.start_at,b.end_at)))return 'blocked';if(reservations.some(r=>r.id!==ignoreId&&r.status==='active'&&r.space_id===sid&&overlaps(start,end,r.start_at,r.end_at)))return 'booked';return 'free'}
+function checkDate(day,u){if(!/^\d{4}-\d{2}-\d{2}$/.test(day))return '請選擇有效日期。';if(day<today())return '不能預約過去日期。';if(u.role==='student'&&day>addDays(today(),14))return '學生僅能預約今天至第 14 天。';return null}
+function bookedHours(u,day,ignoreId=null){return reservations.filter(r=>r.id!==ignoreId&&r.user_id===u.id&&r.status==='active'&&r.start_at.slice(0,10)===day).reduce((total,r)=>total+(new Date(r.end_at)-new Date(r.start_at))/3600000,0)}
+function remainingHours(u,day){return Math.max(0,3-bookedHours(u,day))}
+function validate(hours,u,day,sid){const s=SPACES.find(x=>x.id===sid);if(!s||s.status!=='active')return '此空間目前不可預約。';const de=checkDate(day,u);if(de)return de;if(!hours.length)return '請至少選擇一個時段。';if(u.role==='student'&&bookedHours(u,day)+hours.length>3)return `學生單日累計最多預約 3 小時；當日已預約 ${bookedHours(u,day)} 小時，本次選取 ${hours.length} 小時。`;if(new Set(hours).size!==hours.length)return '選取時段有重複。';for(const h of hours){if(!Number.isInteger(h)||h<0||h>23)return '時段格式不正確。';const status=classify(day,h,sid);if(status!=='free')return `${time(h)}–${time(h+1)} 無法預約（${{booked:'已預約',blocked:'臨時封鎖',weekly:'每週固定禁用',closed:'非開放時段',past:'時間已過',paused:'暫停學生預約',holiday:'指定期間關閉'}[status]||status}）。`;}return null}
+function msg(text,kind='info'){el('message').innerHTML='';if(text){const n=document.createElement('div');n.className='note '+kind;n.textContent=text;el('message').append(n)}}
+function clear(){selected.clear();msg('');render()}
+function renderSpaces(){el('spaces').innerHTML='';for(const s of SPACES){const b=document.createElement('button');b.className='space'+(s.id===space?' active':'');b.disabled=s.status!=='active';b.innerHTML=`<strong>${s.name}</strong><small>容納 ${s.capacity} 人 · ${s.status==='active'?'可預約':'已停用'}</small>`;b.onclick=()=>{space=s.id;clear()};el('spaces').append(b)}}
+function renderSlots(){const box=el('slots');box.innerHTML='';for(let h=9;h<18;h++){const status=classify(date(),h,space),chosen=selected.has(h),b=document.createElement('button');b.className='slot '+(chosen?'selected':status);b.disabled=status!=='free'&&!chosen;b.innerHTML=`${time(h)}–${time(h+1)}<small>${chosen?'✓ 已選取':({free:'可預約',booked:'已預約',blocked:'臨時封鎖',weekly:'每週固定禁用',closed:'不開放',past:'時間已過',paused:'暫停預約',holiday:'假期關閉'}[status])}</small>`;b.onclick=()=>{if(selected.has(h)){selected.delete(h);msg('')}else if(user().role==='student'&&selected.size>=remainingHours(user(),date())){msg(`學生單日累計最多預約 3 小時；當日已預約 ${bookedHours(user(),date())} 小時，剩餘可預約 ${remainingHours(user(),date())} 小時。請先取消選取時段，或改選其他日期。`,'error');return}else{selected.add(h);msg('')}render()};box.append(b)}}
+function renderSummary(){const hours=[...selected].sort((a,b)=>a-b),s=SPACES.find(x=>x.id===space),u=user();const p=el('summary');p.innerHTML='';const line=(a,b)=>{const e=document.createElement('p');e.textContent=`${a}：${b}`;p.append(e)};line('預約人',u.name+'（'+(u.role==='admin'?'行政':'學生')+'）');line('空間',s.name);line('日期',date());line('選取時段',hours.length?hours.map(h=>`${time(h)}–${time(h+1)}`).join('、'):'尚未選取');line('本次選取',hours.length+' 小時');if(u.role==='student'){line('當日已預約',bookedHours(u,date())+' 小時');line('當日剩餘可預約',remainingHours(u,date())+' 小時（尚未扣除本次選取）')}el('count').textContent='已選 '+hours.length+' 小時';el('submit').disabled=!hours.length||!!checkDate(date(),u)||hours.some(h=>classify(date(),h,space)!=='free');el('dateHint').textContent=u.role==='student'?'學生可選日期：'+today()+' 至 '+addDays(today(),14)+'（含）。':'行政人員可預約任何未來日期，無 14 天限制。'}
+function recordMsg(t,kind='info'){const root=el('recordMessage');root.innerHTML='';if(t){const x=document.createElement('div');x.className='note '+kind;x.textContent=t;root.append(x)}}
+function renderRecords(){
+ const admin=user().role==='admin';el('recordFilters').hidden=!admin;
+ const body=el('records');body.innerHTML='';
+ const fd=el('filterDate').value,fs=el('filterSpace').value,fu=el('filterUser').value;
+ const arr=reservations.filter(r=>r.status==='active'&&(admin||r.user_id===user().id)&&(!admin||(!fd||r.start_at.slice(0,10)===fd)&&(!fs||r.space_id===fs)&&(!fu||r.user_id===fu))).sort((a,b)=>a.start_at.localeCompare(b.start_at));
+ if(!arr.length){const tr=document.createElement('tr');tr.innerHTML='<td colspan="7" class="muted">沒有符合條件的預約紀錄</td>';body.append(tr);return}
+ for(const r of arr){const tr=document.createElement('tr'),s=SPACES.find(x=>x.id===r.space_id),owner=USERS.find(x=>x.id===r.user_id);
+  for(const t of [r.start_at.slice(0,10),r.start_at.slice(11,16)+'–'+r.end_at.slice(11,16),s?.name||r.space_id,owner?.name||r.user_id,r.status==='cancelled'?'已取消':'有效',r.id.slice(0,12)]){const td=document.createElement('td');td.textContent=t;tr.append(td)}
+  const td=document.createElement('td');
+  if(r.user_id===user().id&&r.status==='active'&&new Date(r.start_at).getTime()>Date.now()){
+    action(td,'修改',()=>startEdit(r.id));action(td,'取消',()=>cancelReservation(r.id));
+  }else td.textContent=admin?'僅供查看':'—';
+  tr.append(td);if(conflicts.some(c=>c.reservation_id===r.id&&c.conflict_status==='active')){const warn=document.createElement('tr');const cell=document.createElement('td');cell.colSpan=7;cell.className='status-warn';cell.textContent='此預約受到新的管理限制影響，請與行政人員協調。';warn.append(cell);body.append(tr,warn)}else body.append(tr);
+ }
+}
+function startEdit(id){const r=reservations.find(x=>x.id===id);if(!r||r.user_id!==user().id||r.status!=='active'||new Date(r.start_at).getTime()<=Date.now()){recordMsg('此預約無法修改。','error');return}
+ if(user().role==='student'&&isStudentPaused(r.space_id)){recordMsg('此空間目前暫停學生修改預約；仍可取消。','error');return}editingId=id;el('editPanel').hidden=false;el('editDate').value=r.start_at.slice(0,10);el('editSpace').value=r.space_id;el('editHour').value=String(Number(r.start_at.slice(11,13)));el('editDate').min=today();el('editDate').max=user().role==='student'?addDays(today(),14):'';el('editMessage').innerHTML='';el('editPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function endEdit(){editingId=null;el('editPanel').hidden=true}
+function saveEdit(){const r=reservations.find(x=>x.id===editingId),u=user();if(!r||r.user_id!==u.id||r.status!=='active'||new Date(r.start_at).getTime()<=Date.now()){recordMsg('沒有修改此筆預約的權限。','error');endEdit();return}
+ if(u.role==='student'&&isStudentPaused(r.space_id)){recordMsg('原空間已暫停學生修改預約。','error');endEdit();return}const day=el('editDate').value,sid=el('editSpace').value,h=Number(el('editHour').value),s=SPACES.find(x=>x.id===sid);
+ let err=checkDate(day,u);if(!err&&(!s||s.status!=='active'))err='此空間不可預約。';
+ if(!err&&u.role==='student'&&bookedHours(u,day,r.id)+1>3)err='修改後將超過學生每日 3 小時上限。';
+ if(!err){const st=classify(day,h,sid,r.id);if(st!=='free')err='新時段無法預約（'+({booked:'已預約',blocked:'臨時封鎖',weekly:'固定禁用',closed:'非開放時段',past:'時間已過',paused:'暫停學生預約',holiday:'假期關閉'}[st]||st)+'）。'}
+ if(err){const x=el('editMessage');x.innerHTML='';const n=document.createElement('div');n.className='note error';n.textContent='修改失敗：'+err;x.append(n);return}
+ const old={...r};r.space_id=sid;r.start_at=iso(day,h);r.end_at=iso(day,h+1);r.updated_at=new Date().toISOString();
+ try{save();reconcileConflicts();endEdit();selected.clear();render();recordMsg('預約修改成功，原時段已釋出。','ok')}
+ catch{Object.assign(r,old);recordMsg('修改儲存失敗。','error')}
+}
+function cancelReservation(id){const r=reservations.find(x=>x.id===id),u=user();if(!r||r.user_id!==u.id||r.status!=='active'||new Date(r.start_at).getTime()<=Date.now()){recordMsg('無權取消此預約。','error');return}
+ if(!confirm('確定取消這筆預約？取消後原時段將釋出。'))return;
+ r.status='cancelled';r.cancelled_at=new Date().toISOString();try{save();reconcileConflicts();if(editingId===id)endEdit();selected.clear();render();recordMsg('預約已取消，時段已釋出。','ok')}catch{r.status='active';delete r.cancelled_at;recordMsg('取消儲存失敗。','error')}
+}
+
+function render(){const u=user();if(editingId&&reservations.find(r=>r.id===editingId)?.user_id!==u.id)endEdit();el('adminPanel').hidden=u.role!=='admin';if(u.role==='admin')renderAdmin();el('date').min=today();el('date').max=u.role==='student'?addDays(today(),14):'';renderSpaces();renderSlots();renderSummary();renderRecords();renderCalendar()}
+function submit(){const hours=[...selected].sort((a,b)=>a-b),u=user(),day=date();const err=validate(hours,u,day,space);if(err){msg('預約失敗：'+err,'error');render();return}const now=new Date().toISOString();const batch=hours.map(h=>({id:uid(),user_id:u.id,space_id:space,start_at:iso(day,h),end_at:iso(day,h+1),status:'active',created_at:now}));try{const next=[...reservations,...batch];localStorage.setItem(KEY,JSON.stringify(next));reservations=next;selected.clear();render();msg(`預約成功！已建立 ${batch.length} 筆獨立預約紀錄。請至右側「預約紀錄」查看。`,'ok')}catch(e){msg('無法儲存預約，請確認瀏覽器允許本機儲存。','error')}}
+
+function adminMsg(t,kind='info'){const root=el('adminMessage');root.textContent='';if(t){const x=document.createElement('div');x.className='note '+kind;x.textContent=t;root.append(x)}}
+function textNode(parent,tag,value){const x=document.createElement(tag);x.textContent=value;parent.append(x);return x}
+function action(parent,label,fn){const b=document.createElement('button');b.className='secondary';b.textContent=label;b.style.margin='4px';b.onclick=fn;parent.append(b)}
+// A conflict is uniquely keyed by reservation and rule, including legacy v2.7 block entries.
+const ruleRef=(type,id)=>type+':'+id;
+const allRestrictions=()=>[
+ ...customRules.filter(x=>x.status==='active'&&x.type==='closed').map(x=>({type:'weekly',id:x.id,space_id:x.space_id,weekday:x.weekday,start:x.start,end:x.end})),
+ ...BASE_RULES.filter(x=>x.type==='closed').map(x=>({type:'weekly',id:'base-'+x.space_id+'-'+x.weekday+'-'+x.start+'-'+x.end,space_id:x.space_id,weekday:x.weekday,start:x.start,end:x.end})),
+ ...customBlocks.filter(x=>x.status==='active').map(x=>({type:'block',id:x.id,space_id:x.space_id,start_at:x.start_at,end_at:x.end_at})),
+ ...holidays.filter(x=>x.status==='active').map(x=>({type:'holiday',id:x.id,space_id:x.space_id,start_day:x.start_day,end_day:x.end_day}))];
+const restrictionHits=(rule,r)=>{
+ if(r.status!=='active'||r.space_id!==rule.space_id||new Date(r.start_at).getTime()<=Date.now())return false;
+ if(rule.type==='holiday')return USERS.find(x=>x.id===r.user_id)?.role==='student'&&r.start_at.slice(0,10)>=rule.start_day&&r.start_at.slice(0,10)<=rule.end_day;
+ if(rule.type==='block')return overlaps(r.start_at,r.end_at,rule.start_at,rule.end_at);
+ return weekday(r.start_at.slice(0,10))===rule.weekday&&Number(r.start_at.slice(11,13))<rule.end&&Number(r.end_at.slice(11,13))>rule.start;
+};
+function normalizeConflict(c){
+ if(!c.rule_type&&c.block_id){c.rule_type='block';c.rule_id=c.block_id}
+ if(!c.coordination_status)c.coordination_status='pending';
+ return c;
+}
+function reconcileConflicts(){
+ conflicts.forEach(normalizeConflict);
+ const rules=allRestrictions(),map=new Map(rules.map(x=>[ruleRef(x.type,x.id),x]));
+ const now=new Date().toISOString();
+ for(const c of conflicts){
+  const r=reservations.find(x=>x.id===c.reservation_id),rule=map.get(ruleRef(c.rule_type,c.rule_id));
+  const state=!r||r.status==='cancelled'?'reservation_cancelled':new Date(r.start_at).getTime()<=Date.now()?'expired':rule&&restrictionHits(rule,r)?'active':'restriction_removed';
+  if(c.conflict_status!==state){c.history=Array.isArray(c.history)?c.history:[];c.history.push({at:now,from:c.conflict_status||'legacy',to:state});if(state==='active'&&c.conflict_status&&c.conflict_status!=='active'){c.coordination_status='pending';c.resolved_at=null;c.resolved_by=null}c.conflict_status=state;c.updated_at=now}
+ }
+ for(const rule of rules)for(const r of reservations){
+  if(!restrictionHits(rule,r))continue;
+  if(conflicts.some(c=>c.reservation_id===r.id&&c.rule_type===rule.type&&c.rule_id===rule.id))continue;
+  conflicts.push({id:uid(),reservation_id:r.id,rule_type:rule.type,rule_id:rule.id,coordination_status:'pending',conflict_status:'active',created_at:now,history:[{at:now,from:null,to:'active'}]});
+ }
+ persistAdmin();
+}
+function affected(rule){return reservations.filter(r=>restrictionHits(rule,r))}
+function ruleLabel(type){return {weekly:'每週固定禁止',block:'指定日期臨時封鎖',holiday:'指定期間關閉'}[type]||type}
+function previewRule(rootId,rule,confirmFn,oldRule=null){
+ const root=el(rootId);root.replaceChildren();const hits=affected(rule),oldHits=oldRule?affected(oldRule):[];
+ const oldIds=new Set(oldHits.map(r=>r.id)),newIds=new Set(hits.map(r=>r.id));
+ const added=hits.filter(r=>!oldIds.has(r.id)),removed=oldHits.filter(r=>!newIds.has(r.id));
+ const maintained=hits.filter(r=>oldIds.has(r.id));
+ const revived=added.filter(r=>conflicts.some(c=>c.reservation_id===r.id&&c.rule_type===rule.type&&c.rule_id===rule.id&&c.conflict_status!=='active'));
+ const genuinelyNew=added.filter(r=>!revived.includes(r));
+ const wrap=document.createElement('div');wrap.className='note info';
+ textNode(wrap,'strong',`儲存前預覽：修改後受影響 ${hits.length} 筆；解除 ${removed.length} 筆；新增 ${genuinelyNew.length} 筆；重新發生 ${revived.length} 筆；持續 ${maintained.length} 筆。`);
+ if(oldRule){const oldSpace=SPACES.find(s=>s.id===oldRule.space_id)?.name||oldRule.space_id,newSpace=SPACES.find(s=>s.id===rule.space_id)?.name||rule.space_id;
+  const fmt=x=>x.type==='weekly'?`${'日一二三四五六'[x.weekday]} ${time(x.start)}–${time(x.end)}`:x.type==='holiday'?`${x.start_day}～${x.end_day}`:'';
+  textNode(wrap,'p',`修改前：${oldSpace}｜${fmt(oldRule)}；修改後：${newSpace}｜${fmt(rule)}`);
+ }
+ const ul=document.createElement('ul');ul.className='preview-list';
+ const desc=(r,tag)=>{const u=USERS.find(x=>x.id===r.user_id),sp=SPACES.find(x=>x.id===r.space_id);const existing=conflicts.find(c=>c.reservation_id===r.id&&c.rule_type===rule.type&&c.rule_id===rule.id);const li=document.createElement('li');li.textContent=`${tag}｜${u?.name||r.user_id}｜${sp?.name||r.space_id}｜${r.start_at.slice(0,16).replace('T',' ')}–${r.end_at.slice(11,16)}${existing?'｜原協調：'+(existing.coordination_status==='done'?'已協調':'待協調'):''}`;ul.append(li)};
+ removed.forEach(r=>desc(r,'解除衝突'));genuinelyNew.forEach(r=>desc(r,'新增衝突'));revived.forEach(r=>desc(r,'重新發生'));maintained.forEach(r=>desc(r,'持續衝突'));
+ if(ul.children.length)wrap.append(ul);else textNode(wrap,'p','沒有受影響的未來有效預約。');
+ textNode(wrap,'p','預覽不會變更資料；確認儲存後才更新規則與協調紀錄。既有預約不會被取消。');
+ action(wrap,'確認儲存',()=>{root.replaceChildren();confirmFn()});action(wrap,'取消',()=>root.replaceChildren());root.append(wrap);
+}
+
+function applyAdminChange(change,success){
+ if(user().role!=='admin')return;
+ const old={rules:structuredClone(customRules),blocks:structuredClone(customBlocks),holidays:structuredClone(holidays),conflicts:structuredClone(conflicts),pauses:structuredClone(pauses)};
+ try{change();reconcileConflicts();selected.clear();render();adminMsg(success,'ok')}
+ catch(e){customRules=old.rules;customBlocks=old.blocks;holidays=old.holidays;conflicts=old.conflicts;pauses=old.pauses;try{persistAdmin()}catch{}render();adminMsg('無法儲存管理設定，原資料已盡可能還原。','error')}
+}
+function renderAdmin(){
+ const sid=el('adminSpace').value;
+ const pauseRoot=el('pauseList');pauseRoot.replaceChildren();
+ for(const sp of SPACES){const d=document.createElement('div');d.className='toolbar';d.style.margin='8px 0';const t=document.createElement('span');t.textContent=sp.name+'｜'+(pauses[sp.id]?'已暫停學生預約':'學生預約開放中');t.className=pauses[sp.id]?'status-warn':'status-good';d.append(t);action(d,pauses[sp.id]?'恢復學生預約':'暫停學生預約',()=>{const next=!pauses[sp.id];if(!confirm(`確定${next?'暫停':'恢復'}${sp.name}的學生預約？\n\n既有預約不會取消，也不會因此產生協調紀錄。`))return;applyAdminChange(()=>{pauses[sp.id]=next},`${sp.name}已${next?'暫停':'恢復'}學生預約。`)});pauseRoot.append(d)}
+ const hl=el('holidayList');hl.replaceChildren();textNode(hl,'h3','已設定的關閉區間');
+ const hs=holidays.filter(x=>x.status==='active').sort((a,b)=>a.start_day.localeCompare(b.start_day));
+ if(!hs.length)textNode(hl,'p','尚無啟用中的指定期間關閉規則。');
+ for(const h of hs){const d=document.createElement('div');d.className='management-card';const state=h.end_day<today()?'已結束':h.start_day>today()?'尚未生效':'進行中';textNode(d,'div',`${SPACES.find(x=>x.id===h.space_id)?.name||h.space_id}｜${h.start_day}～${h.end_day}｜${state}`);textNode(d,'p',h.reason||'未填寫原因');action(d,'修改',()=>{editingHolidayId=h.id;el('holidaySpace').value=h.space_id;el('holidayStart').value=h.start_day;el('holidayEnd').value=h.end_day;el('holidayReason').value=h.reason||'';el('holidaySave').textContent='預覽修改關閉區間';el('holidayCancelEdit').hidden=false;el('holidayPreview').replaceChildren();el('holidaySave').scrollIntoView({behavior:'smooth',block:'nearest'})});action(d,'取消關閉',()=>{if(!confirm('確定取消此關閉區間？原規則將保留為歷史紀錄，相關衝突會重新判斷。'))return;applyAdminChange(()=>{h.status='inactive'},'已取消關閉區間，相關衝突已重新判斷。');resetHolidayEditor()});hl.append(d)}
+ const w=el('weeklyList');w.replaceChildren();const wr=customRules.filter(r=>r.space_id===sid&&r.status==='active');if(!wr.length)textNode(w,'p','尚無自訂固定禁用規則。');
+ for(const r of wr){const d=document.createElement('div');d.className='note info';textNode(d,'span',`每週${'日一二三四五六'[r.weekday]} ${time(r.start)}–${time(r.end)} `);action(d,'修改',()=>startWeeklyEdit(r.id));action(d,'移除規則',()=>{if(!confirm('確定移除此固定禁止規則？'))return;applyAdminChange(()=>{r.status='inactive';if(editingWeeklyId===r.id)resetWeeklyEditor()},'已移除固定規則，相關衝突已重新判斷。')});w.append(d)}
+ for(const r of BASE_RULES.filter(r=>r.space_id===sid&&r.type==='closed'))textNode(w,'p',`原型內建規則：每週${'日一二三四五六'[r.weekday]} ${time(r.start)}–${time(r.end)}（唯讀）`);
+ const bl=el('blockList');bl.replaceChildren();const bs=customBlocks.filter(b=>b.space_id===sid&&b.status==='active').sort((a,b)=>a.start_at.localeCompare(b.start_at));if(!bs.length)textNode(bl,'p','目前沒有啟用中的臨時封鎖。');
+ for(const b of bs){const d=document.createElement('div');d.className='note info';textNode(d,'span',`${b.start_at.slice(0,10)} ${b.start_at.slice(11,16)}–${b.end_at.slice(11,16)} `);action(d,'解除封鎖',()=>{if(!confirm('確定解除此臨時封鎖？'))return;applyAdminChange(()=>{b.status='inactive'},'已解除臨時封鎖，相關衝突已重新判斷。')});bl.append(d)}
+ renderConflicts();
+}
+function renderConflicts(){
+ el('conflictPending').setAttribute('aria-pressed',String(conflictView==='pending'));el('conflictAll').setAttribute('aria-pressed',String(conflictView==='all'));
+ const root=el('conflictList');root.replaceChildren();const cs=conflicts.filter(c=>{const r=reservations.find(x=>x.id===c.reservation_id);return !!r&&(conflictView==='all'||(c.conflict_status==='active'&&c.coordination_status==='pending'))}).sort((a,b)=>(b.created_at||'').localeCompare(a.created_at||''));
+ if(!cs.length){textNode(root,'p',conflictView==='pending'?'目前沒有待處理的協調紀錄。':'目前沒有協調歷程。');return}
+ for(const c of cs){const r=reservations.find(x=>x.id===c.reservation_id),owner=USERS.find(x=>x.id===r?.user_id),d=document.createElement('div');d.className='conflict-item';const states={active:'衝突仍存在',restriction_removed:'限制已解除',reservation_cancelled:'預約已取消',expired:'預約已過期'};textNode(d,'strong',`${SPACES.find(s=>s.id===r?.space_id)?.name||r?.space_id||'未知空間'}｜${owner?.name||'未知預約人'}｜${r?.start_at.slice(0,16).replace('T',' ')||'原預約不存在'}–${r?.end_at.slice(11,16)||''}`);textNode(d,'p',`來源：${ruleLabel(c.rule_type)}｜衝突：${states[c.conflict_status]||'待重新判斷'}｜協調：${c.coordination_status==='done'?'已協調':'待協調'}`);textNode(d,'p',`規則 ID：${c.rule_id}｜預約 ID：${c.reservation_id}`);
+ const input=document.createElement('input');input.placeholder='協調備註（選填）';input.value=c.note||'';input.setAttribute('aria-label','協調備註');d.append(input);action(d,'儲存備註',()=>applyAdminChange(()=>{c.note=input.value;c.note_updated_at=new Date().toISOString()},'協調備註已儲存。'));
+ if(c.conflict_status==='active'&&c.coordination_status!=='done')action(d,'標記已協調',()=>applyAdminChange(()=>{c.coordination_status='done';c.resolved_by=user().id;c.resolved_at=new Date().toISOString()},'已記錄協調完成；預約與限制仍保持原狀。'));
+ if(conflictView==='all'&&c.history?.length)textNode(d,'p',`狀態歷程：${c.history.map(x=>`${formatTaiwanTimestamp(x.at)} ${states[x.to]||x.to}`).join(' → ')}`);
+ root.append(d)
+ }
+}
+function resetHolidayEditor(){editingHolidayId=null;el('holidaySave').textContent='預覽新增關閉區間';el('holidayCancelEdit').hidden=true;el('holidayPreview').replaceChildren();el('holidayReason').value=''}
+function saveHoliday(){
+ const sid=el('holidaySpace').value,start=el('holidayStart').value,end=el('holidayEnd').value,reason=el('holidayReason').value.trim();const old=holidays.find(x=>x.id===editingHolidayId&&x.status==='active');
+ if(!start||!end||start>end||end<today()){adminMsg('請選擇有效日期區間；結束日期不可早於今天。','error');return}
+ if(!reason){adminMsg('請填寫關閉原因。','error');return}
+ const next={type:'holiday',id:old?.id||uid(),space_id:sid,start_day:start,end_day:end,status:'active',reason};
+ previewRule('holidayPreview',next,()=>applyAdminChange(()=>{if(old)Object.assign(old,next);else holidays.push(next);resetHolidayEditor()},old? '關閉區間已修改，衝突已重新計算。':'關閉區間已新增，衝突已建立。'),old?{...old,type:'holiday'}:null)
+}
+function weeklyError(message=''){const root=el('weeklyError');root.replaceChildren();if(message){const n=document.createElement('div');n.className='note error';n.textContent=message;root.append(n)}}
+function resetWeeklyEditor(){editingWeeklyId=null;el('addWeekly').textContent='預覽新增固定禁止規則';el('weeklyCancelEdit').hidden=true;el('weeklyPreview').replaceChildren();weeklyError()}
+function startWeeklyEdit(id){if(user().role!=='admin')return;const r=customRules.find(x=>x.id===id&&x.status==='active'&&x.type==='closed');if(!r){adminMsg('此規則已無法修改。','error');return}editingWeeklyId=id;weeklyError();el('adminSpace').value=r.space_id;el('weeklyDay').value=String(r.weekday);el('weeklyStart').value=String(r.start);el('weeklyEnd').value=String(r.end);el('addWeekly').textContent='預覽修改固定禁止規則';el('weeklyCancelEdit').hidden=false;el('weeklyPreview').replaceChildren();renderAdmin();el('addWeekly').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function addWeekly(){
+ if(user().role!=='admin')return;
+ const sid=el('adminSpace').value,wd=Number(el('weeklyDay').value),start=Number(el('weeklyStart').value),end=Number(el('weeklyEnd').value);
+ if(!SPACES.some(s=>s.id===sid)||!Number.isInteger(wd)||wd<0||wd>6||!Number.isInteger(start)||!Number.isInteger(end)||start<9||end>18||start>=end){const error='請選擇有效空間、星期及時間；結束時間必須晚於開始時間。';el('weeklyPreview').replaceChildren();weeklyError(error);adminMsg(error,'error');return}
+  weeklyError();
+ const old=editingWeeklyId?customRules.find(x=>x.id===editingWeeklyId&&x.status==='active'&&x.type==='closed'):null;
+ if(editingWeeklyId&&!old){adminMsg('原規則已不存在或已移除，請重新選擇。','error');resetWeeklyEditor();return}
+ const next={id:old?.id||uid(),space_id:sid,weekday:wd,start,end,type:'closed',status:'active'};
+ const preview={...next,type:'weekly'},previous=old?{...old,type:'weekly'}:null;
+ previewRule('weeklyPreview',preview,()=>{
+  // Prevent a stale preview from overwriting a rule changed or removed since preview.
+  if(old&&(!customRules.includes(old)||old.status!=='active')){adminMsg('規則狀態已變更，請重新預覽。','error');return}
+  applyAdminChange(()=>{if(old)Object.assign(old,next);else customRules.push(next);resetWeeklyEditor()},old?'每週固定禁止規則已修改，相關衝突已重新計算。':'每週固定禁止時段已新增，相關預約衝突已建立。');
+ },previous);
+}
+function addBlock(){const sid=el('adminSpace').value,day=el('blockDate').value,start=+el('blockStart').value,end=+el('blockEnd').value;if(!day||day<today()||start>=end){adminMsg('請選擇今天以後的日期，且結束時間須晚於開始時間。','error');return}if(day===today()&&new Date(iso(day,end)).getTime()<=Date.now()){adminMsg('無法封鎖已結束的時段。','error');return}const b={id:uid(),type:'block',space_id:sid,start_at:iso(day,start),end_at:iso(day,end),status:'active',created_by:user().id};previewRule('blockPreview',b,()=>applyAdminChange(()=>{customBlocks.push(b)},'臨時封鎖已生效，相關預約衝突已建立。'))}
+function resetAdminDemo(){
+ if(user().role!=='admin')return;
+ if(!confirm('確定重設管理示範資料？\n\n將清除自訂固定禁止、臨時封鎖、假期關閉及全部協調紀錄，並恢復所有空間的學生預約開放狀態。\n\n所有預約與內建固定規則均會保留。此操作無法復原。'))return;
+ applyAdminChange(()=>{customRules=[];customBlocks=[];holidays=[];pauses={};conflicts=[];resetHolidayEditor();resetWeeklyEditor()},'管理示範資料已重設，預約及內建固定規則均保留。');
+}
+
+// GAP-007: administrator-only calendar, read-only and based on the same reservation array as the list.
+let calendarMode='week',calendarCursor=today();
+const calendarMonday=d=>addDays(d,-((weekday(d)+6)%7));
+const calendarFirst=d=>d.slice(0,7)+'-01';
+const calendarMonthShift=(d,n)=>{const x=new Date(d.slice(0,7)+'-01T12:00:00Z');x.setUTCMonth(x.getUTCMonth()+n);return x.toISOString().slice(0,10)};
+const calendarBookings=(day,h=null)=>reservations.filter(r=>r.status==='active'&&r.start_at.slice(0,10)===day&&(!el('calSpace').value||r.space_id===el('calSpace').value)&&(h===null||Number(r.start_at.slice(11,13))===h)).sort((a,b)=>a.start_at.localeCompare(b.start_at)||a.space_id.localeCompare(b.space_id));
+function calendarBookingButton(r){const b=document.createElement('button');b.type='button';b.className='cal-booking';const owner=USERS.find(u=>u.id===r.user_id),sp=SPACES.find(x=>x.id===r.space_id);b.textContent=r.start_at.slice(11,16)+'–'+r.end_at.slice(11,16)+'｜'+(sp?.name||r.space_id)+'｜'+(owner?.name||r.user_id);b.title='查看預約詳細資料';b.onclick=()=>showCalendarDetail(r.id);return b}
+function showCalendarDetail(id){if(user().role!=='admin')return;const r=reservations.find(x=>x.id===id&&x.status==='active');if(!r){el('calDetail').hidden=true;return}const sp=SPACES.find(x=>x.id===r.space_id),owner=USERS.find(x=>x.id===r.user_id),root=el('calDetailText');root.replaceChildren();for(const [k,v] of [['預約編號',r.id],['預約人',owner?.name||r.user_id],['日期',r.start_at.slice(0,10)],['時段',r.start_at.slice(11,16)+'–'+r.end_at.slice(11,16)],['空間',sp?.name||r.space_id],['狀態','有效']]){const line=document.createElement('p');line.textContent=k+'：'+v;root.append(line)}el('calDetail').hidden=false;el('calDetail').scrollIntoView({block:'nearest',behavior:'smooth'})}
+function renderCalendar(){const admin=user().role==='admin';el('calendarPanel').hidden=!admin;if(!admin){el('calDetail').hidden=true;return}el('viewWeek').setAttribute('aria-pressed',String(calendarMode==='week'));el('viewMonth').setAttribute('aria-pressed',String(calendarMode==='month'));const root=el('calContent');root.replaceChildren();const grid=document.createElement('div');grid.className=calendarMode==='week'?'cal-grid':'cal-month';root.append(grid);
+ const cell=(label,classes='')=>{const x=document.createElement('div');x.className='cal-cell '+classes;if(label!==null)x.textContent=label;grid.append(x);return x};
+ if(calendarMode==='week'){const start=calendarMonday(calendarCursor),end=addDays(start,6);el('calRange').textContent=start+' ～ '+end;cell('時段','cal-head');for(let i=0;i<7;i++){const d=addDays(start,i);cell('週'+'一二三四五六日'[i]+' '+d.slice(5),'cal-head'+(i===6?' cal-sunday':''))}for(let h=9;h<18;h++){cell(time(h)+'–'+time(h+1),'cal-hour');for(let i=0;i<7;i++){const day=addDays(start,i),x=cell(null,i===6?'cal-sunday':'');for(const r of calendarBookings(day,h))x.append(calendarBookingButton(r))}}}
+ else{const first=calendarFirst(calendarCursor),offset=(weekday(first)+6)%7,start=addDays(first,-offset);el('calRange').textContent=first.slice(0,7)+' 月曆';for(let i=0;i<7;i++)cell('週'+'一二三四五六日'[i],'cal-head'+(i===6?' cal-sunday':''));for(let i=0;i<42;i++){const d=addDays(start,i),x=cell(null,(d.slice(0,7)!==first.slice(0,7)?'cal-outside ':'')+(weekday(d)===0?'cal-sunday':''));const dateLabel=document.createElement('div');dateLabel.className='cal-date';dateLabel.textContent=d.slice(8);x.append(dateLabel);for(const r of calendarBookings(d))x.append(calendarBookingButton(r))}}
+}
+el('viewWeek').onclick=()=>{calendarMode='week';el('calDetail').hidden=true;renderCalendar()};el('viewMonth').onclick=()=>{calendarMode='month';el('calDetail').hidden=true;renderCalendar()};el('calPrev').onclick=()=>{calendarCursor=calendarMode==='week'?addDays(calendarCursor,-7):calendarMonthShift(calendarCursor,-1);el('calDetail').hidden=true;renderCalendar()};el('calNext').onclick=()=>{calendarCursor=calendarMode==='week'?addDays(calendarCursor,7):calendarMonthShift(calendarCursor,1);el('calDetail').hidden=true;renderCalendar()};el('calToday').onclick=()=>{calendarCursor=today();el('calDetail').hidden=true;renderCalendar()};el('calSpace').onchange=()=>{el('calDetail').hidden=true;renderCalendar()};el('calClose').onclick=()=>el('calDetail').hidden=true;
+for(const sp of SPACES){const o=document.createElement('option');o.value=sp.id;o.textContent=sp.name;el('calSpace').append(o)}
+
+for(const s of SPACES){const o=document.createElement('option');o.value=s.id;o.textContent=s.name;el('adminSpace').append(o)}
+for(const [a,b] of [['weeklyStart','weeklyEnd'],['blockStart','blockEnd']]){for(let h=9;h<=18;h++){for(const id of [a,b]){const o=document.createElement('option');o.value=h;o.textContent=time(h);el(id).append(o)}}el(a).value='12';el(b).value='13'}
+el('holidayStart').value=addDays(today(),1);el('holidayEnd').value=addDays(today(),7);for(const sp of SPACES){const o=document.createElement('option');o.value=sp.id;o.textContent=sp.name;el('holidaySpace').append(o)}el('holidaySave').onclick=saveHoliday;el('holidayCancelEdit').onclick=resetHolidayEditor;el('conflictPending').onclick=()=>{conflictView='pending';renderAdmin()};el('conflictAll').onclick=()=>{conflictView='all';renderAdmin()};el('blockDate').value=addDays(today(),1);el('blockDate').min=today();el('adminSpace').onchange=()=>{el('weeklyPreview').replaceChildren();weeklyError();renderAdmin()};for(const id of ['weeklyDay','weeklyStart','weeklyEnd'])el(id).onchange=()=>{el('weeklyPreview').replaceChildren();weeklyError()};el('addWeekly').onclick=addWeekly;el('weeklyCancelEdit').onclick=resetWeeklyEditor;el('addBlock').onclick=addBlock;el('resetAdminDemo').onclick=resetAdminDemo;
+
+for(const u of USERS){const o=document.createElement('option');o.value=u.id;o.textContent=u.name+'｜'+(u.role==='admin'?'行政人員':'學生');el('user').append(o)}
+for(const sp of SPACES){for(const id of ['filterSpace','editSpace']){const o=document.createElement('option');o.value=sp.id;o.textContent=sp.name;el(id).append(o)}}for(const u of USERS){const o=document.createElement('option');o.value=u.id;o.textContent=u.name;el('filterUser').append(o)}for(let h=9;h<18;h++){const o=document.createElement('option');o.value=h;o.textContent=time(h)+'–'+time(h+1);el('editHour').append(o)}for(const id of ['filterDate','filterSpace','filterUser'])el(id).onchange=renderRecords;el('saveEdit').onclick=saveEdit;el('cancelEdit').onclick=endEdit;el('user').value='s1';el('date').value=addDays(today(),1);el('user').onchange=()=>{endEdit();resetWeeklyEditor();recordMsg('');selected.clear();if(checkDate(date(),user()))el('date').value=addDays(today(),1);msg('');render()};el('date').onchange=clear;el('submit').onclick=submit;reconcileConflicts();render();
+</script></body></html>
